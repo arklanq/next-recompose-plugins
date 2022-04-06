@@ -1,0 +1,23 @@
+{
+  "name": "next-recompose-plugins",
+  "author": "IdkMan2",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": ["next.js", "next", "react", "plugins", "compose"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IdkMan2/next-recompose-plugins.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IdkMan2/next-recompose-plugins/issues"
+  },
+  "homepage": "https://github.com/IdkMan2/next-recompose-plugins#readme",
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}
