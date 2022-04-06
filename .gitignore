@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+
+# IDE
+.idea
+
+# App
+node_modules
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+.eslintcache
+
+# misc
+.tmp
