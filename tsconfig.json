@@ -14,11 +14,6 @@
     /* JavaScript Support */
     "allowJs": false,                                    /* Allow JavaScript files to be a part of your program. Use the `checkJS` option to get errors from these files. */
 
-    /* Emit */
-    "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-    "emitDeclarationOnly": true,                         /* Only output d.ts files and not JavaScript files. */
-    "outDir": "./dist/types/",                           /* Specify an output folder for all emitted files. */
-
     /* Interop Constraints */
     "isolatedModules": true,                             /* Ensure that each file can be safely transpiled without relying on other imports. */
     "allowSyntheticDefaultImports": true,                /* Allow 'import x from y' when a module doesn't have a default export. */
@@ -30,7 +25,5 @@
 
     /* Completeness */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  }
 }

@@ -1,59 +1,17 @@
 {
   "name": "next-recompose-plugins",
   "author": "IdkMan2",
-  "version": "0.1.0",
-  "license": "MIT",
-  "keywords": [
-    "next.js",
-    "next",
-    "react",
-    "plugins",
-    "compose"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/IdkMan2/next-recompose-plugins.git"
+  "private": true,
+  "license": "UNLICENSED",
+  "workspaces": {
+    "packages": ["lib", "test-applications/*"],
+    "nohoist": ["**/next", "**/next/**"]
   },
-  "bugs": {
-    "url": "https://github.com/IdkMan2/next-recompose-plugins/issues"
-  },
-  "homepage": "https://github.com/IdkMan2/next-recompose-plugins#readme",
-  "scripts": {
-    "build:clean": "rimraf dist",
-    "build:js": "rollup --config rollup.config.js",
-    "build:ts": "tsc --project tsconfig.json",
-    "build": "yarn run build:clean && yarn run build:js && yarn run build:ts",
-    "lint": "yarn run eslint --fix \"src/**/*.ts\"",
-    "format": "yarn run prettier --loglevel warn --write \"src/**/*.ts\""
-  },
-  "main": "./dist/cjs/main.js",
-  "module": "./dist/esm/main.js",
-  "types": "./dist/types/main.d.ts",
-  "exports": {
-    ".": {
-      "require": "./dist/cjs/main.js",
-      "import": "./dist/esm/main.js"
-    }
-  },
-  "files": [
-    "dist"
-  ],
-  "dependencies": {},
-  "devDependencies": {
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "@rollup/plugin-typescript": "^8.3.1",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
+  "dependencies": {
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
-    "next": ">9",
-    "prettier": "^2.6.2",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.70.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.6.3"
-  },
-  "peerDependencies": {
-    "next": ">9"
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "prettier": "^2.6.2"
   }
 }
