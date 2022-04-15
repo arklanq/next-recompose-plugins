@@ -4,14 +4,20 @@
   "private": true,
   "license": "UNLICENSED",
   "workspaces": {
-    "packages": ["lib", "test-applications/*"],
-    "nohoist": ["**/next", "**/next/**"]
+    "packages": [
+      "lib",
+      "test-applications/*"
+    ],
+    "nohoist": [
+      "**/next",
+      "**/next/**"
+    ]
   },
   "dependencies": {
-    "eslint": "^8.13.0",
-    "eslint-config-prettier": "^8.5.0",
     "@typescript-eslint/eslint-plugin": "^5.18.0",
     "@typescript-eslint/parser": "^5.18.0",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.6.2"
   }
 }
