@@ -7,5 +7,5 @@ export function isAsyncConfigFactorySupported() {
   const nextJsPkg = require(nextJsModulePath) as {version: string};
   const nextJsVersion: string = nextJsPkg.version;
 
-  return semver.gt(nextJsVersion, '12.1.0');
+  return semver.gte(nextJsVersion, '12.1.0');
 }
