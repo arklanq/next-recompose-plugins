@@ -1,0 +1,11 @@
+{
+  "deep": true,
+  "packageManager": true,
+  "reject": [
+    "next",
+    "react",
+    "react-dom",
+    "@types/react",
+    "@types/react-dom"
+  ]
+}
