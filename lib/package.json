@@ -43,7 +43,8 @@
     }
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "dependencies": {
     "is-promise": "^4.0.0",
