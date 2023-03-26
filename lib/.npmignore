@@ -1,5 +1,6 @@
 /.eslintrc.js
 /.gitignore
+/.nvmrc
 /jest.config.js
 /rollup.config.mjs
 /tsconfig.json
