@@ -1,6 +1,6 @@
-const withBundleAnalyzer = require('@next/bundle-analyzer');
-const {PHASE_PRODUCTION_BUILD} = require('next/constants');
 const {Config} = require('next-recompose-plugins');
+const {PHASE_PRODUCTION_BUILD} = require('next/constants');
+const withBundleAnalyzer = require('@next/bundle-analyzer');
 
 const config = new Config(() => {
   return {
