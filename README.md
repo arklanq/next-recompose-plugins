@@ -1,7 +1,8 @@
 The default way Next.js suggests to enable and configure plugins is unclear and confusing when you have many plugins.
 Sometimes we even use plugins that do not have a standardized API, so our code becomes even more obscure.
 
-In order to address that `next-recompose-plugins` provides a **clean** 🫧 and **easy** ✅ **API** for Next.js's plugins configuration and composition.
+In order to address that `next-recompose-plugins` provides a **clean** 🫧 and **easy** ✅ **API** for Next.js's plugins
+configuration and composition.
 
 ### Table of contents
 
@@ -10,6 +11,7 @@ In order to address that `next-recompose-plugins` provides a **clean** 🫧 and 
 - [Building basic configuration](#building-basic-configuration)
 - [Applying plugins](#applying-plugins)
 - [Real world example](#real-world-example)
+- [Migration guides](#migration-guides)
 
 ### Quick showcase
 
@@ -61,7 +63,8 @@ module.exports = new Config({
   .build();
 ```
 
-You can also use a function. This way you have possibility to define different options based on current phase or args provided by Next.
+You can also use a function. This way you have possibility to define different options based on current phase or args
+provided by Next.
 
 ```javascript
 // next.config.js
@@ -97,11 +100,13 @@ module.exports = new Config(async (phase, args) => {
 
 Let's apply `@next/bundle-analyzer` plugin by chaining `applyPlugin` method.
 Pass a function to `applyPlugin(...)` method which accepts the following arguments:
+
 * `phase` - current configuration phase as one of the constants of `next/constants`;
 * `args` - args provided by Next;
 * `config` - the source config object.
 
-> Important: Your plugin applying function should take the config object, (optionally) enhance it using a desired plugin then return the object back!
+> Important: Your plugin applying function should take the config object, (optionally) enhance it using a desired plugin
+> then return the object back!
 
 ```javascript
 // next.config.js
@@ -155,8 +160,9 @@ module.exports = new Config({...})
   .build();
 ```
 
-It's a good technique to annotate your plugin applying functions with a name. 
-When an error occur there will be a detailed information provided indicating which `applyMethod` invocation function is failing.
+It's a good technique to annotate your plugin applying functions with a name.
+When an error occur there will be a detailed information provided indicating which `applyMethod` invocation function is
+failing.
 
 ```javascript
 // next.config.js
@@ -246,3 +252,7 @@ const config = new Config(async () => {
 
 module.exports = config;
 ```
+
+### Migration guides
+
+[**v1 -> v2** 🔗](docs/migrations/v1->v2.md)
