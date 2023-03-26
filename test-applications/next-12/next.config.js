@@ -1,27 +1,21 @@
-// const bundleAnalyzer = require('@next/bundle-analyzer');
-// const {PHASE_PRODUCTION_BUILD} = require('next/constants');
-const {ConfigBuilder} = require('next-recompose-plugins');
+const withBundleAnalyzer = require('@next/bundle-analyzer');
+const {PHASE_PRODUCTION_BUILD} = require('next/constants');
+const {Config} = require('next-recompose-plugins');
 
-module.exports = ConfigBuilder.defineConfig(async (phase, args) => {
+const config = new Config(async () => {
   return {
-    ...args.defaultConfig,
-    reactStrictMode: true,
-    experimental: {},
+    reactStrictMode: true
   };
 })
-  .applyPlugin(async (phase, args, config) => {
-    console.log('dummyPlugin 1');
-    Object.defineProperty(config, '__dummyPlugin1', {value: true});
+  .applyPlugin((phase, args, config) => {
+    return withBundleAnalyzer({enabled: phase === PHASE_PRODUCTION_BUILD})(config);
+  }, 'bundle-analyzer')
+  .applyPlugin((phase, args, config) => {
+    config.env = {
+      foo: 'bar'
+    };
     return config;
-  }, 'dummyPlugin 1')
-  .applyPlugin(async (phase, args, config) => {
-    console.log('dummyPlugin 2');
-    Object.defineProperty(config, '__dummyPlugin2', {value: true});
-    return config;
-  }, 'dummyPlugin 2')
-  .applyPlugin(async (phase, args, config) => {
-    console.log('dummyPlugin 3');
-    Object.defineProperty(config, '__dummyPlugin3', {value: true});
-    return config;
-  }, 'dummyPlugin 3')
+  }, 'dummy-plugin')
   .build();
+
+module.exports = config;
