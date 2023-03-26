@@ -1,8 +1,9 @@
 {
   "deep": true,
-  "packageManager": true,
+  "packageManager": "yarn",
   "reject": [
     "next",
+    "@next/bundle-analyzer",
     "react",
     "react-dom",
     "@types/react",
