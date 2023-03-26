@@ -1,0 +1,23 @@
+{
+  "name": "next-13",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "^13",
+    "@next/bundle-analyzer": "^13",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "typescript": "5.0.2",
+    "@types/node": "^18",
+    "@types/react": "^18",
+    "@types/react-dom": "^18"
+  }
+}
