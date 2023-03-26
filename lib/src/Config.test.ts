@@ -1,87 +1,99 @@
-import {ConfigBuilder} from './ConfigBuilder';
-import {NextConfig} from 'next';
-import {ConfigFactoryArguments, ConfigurationPhase, NextConfigFactory} from './NextConfigDeclaration';
+import {Config} from './Config';
 import {PHASE_DEVELOPMENT_SERVER} from 'next/constants';
-import isPromise from 'is-promise';
+import {ConfigFactoryArguments, ConfigurationPhase, NextConfigFactory} from './NextConfigDeclaration';
+import {NextConfig} from 'next';
 import {dummyPlugin} from './__mocks__/dummyPlugin';
+import isPromise from 'is-promise';
 
-describe('`ConfigBuilder` class', () => {
-  describe('`defineConfig` static method', () => {
-    test('returns `ConfigBuilder` instance.', () => {
-      const configBuilder: ConfigBuilder = ConfigBuilder.defineConfig();
-      expect(configBuilder).toBeInstanceOf(ConfigBuilder);
+describe('`Config` class', () => {
+  describe('constructor', () => {
+    test('returns `Config` instance.', () => {
+      const config: Config = new Config({});
+      expect(config).toBeInstanceOf(Config);
     });
 
     test("doesn't allow to use async function when next <12.1", () => {
       jest.isolateModules(() => {
         jest.doMock('next/package.json', () => ({version: '12.0.0'}));
-        const ActualConfigBuilder: typeof ConfigBuilder =
-          jest.requireActual<typeof import('./ConfigBuilder')>('./ConfigBuilder').ConfigBuilder;
-        const configBuilder: ConfigBuilder = ActualConfigBuilder.defineConfig(() => Promise.resolve({}));
+
+        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+
+        const config: Config = new actual_Config(() => Promise.resolve({}));
+
         expect(() => {
-          // Error is actually throws during build
-          void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).toThrowError('This feature is supported only in Next.js 12.1+.');
+          // Error is actually thrown on `build()` method invocation
+          void config.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
+        }).toThrowError(
+          'Config factory function cannot return `Promise`. This feature is supported only in Next.js 12.1+.'
+        );
       });
     });
 
     test('allow to use async function when next >=12.1', () => {
       jest.isolateModules(() => {
         jest.doMock('next/package.json', () => ({version: '12.1.0'}));
-        const ActualConfigBuilder: typeof ConfigBuilder =
-          jest.requireActual<typeof import('./ConfigBuilder')>('./ConfigBuilder').ConfigBuilder;
-        const configBuilder: ConfigBuilder = ActualConfigBuilder.defineConfig(() => Promise.resolve({}));
+        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+
+        const configBuilder: Config = new actual_Config(() => Promise.resolve({}));
+
         expect(() => {
-          // Error is actually throws during build
+          // Error is actually thrown on `build()` method invocation
           void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).not.toThrowError('This feature is supported only in Next.js 12.1+.');
+        }).not.toThrowError();
       });
     });
   });
 
   describe('`applyPlugin` method', () => {
-    let configBuilder: ConfigBuilder;
+    let config: Config;
+
     beforeEach(() => {
-      configBuilder = ConfigBuilder.defineConfig();
+      config = new Config({});
     });
 
     test('returns `ConfigBuilder` instance.', () => {
       expect(
-        configBuilder.applyPlugin((_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) =>
+        config.applyPlugin((_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) =>
           dummyPlugin(config, {property: '__dummyPlugin'})
         )
-      ).toBeInstanceOf(ConfigBuilder);
+      ).toBeInstanceOf(Config);
     });
 
     test("doesn't allow to use async function when next <12.1", () => {
       jest.isolateModules(() => {
         jest.doMock('next/package.json', () => ({version: '12.0.0'}));
-        const ActualConfigBuilder: typeof ConfigBuilder =
-          jest.requireActual<typeof import('./ConfigBuilder')>('./ConfigBuilder').ConfigBuilder;
-        const configBuilder: ConfigBuilder = ActualConfigBuilder.defineConfig().applyPlugin(
+
+        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+
+        const configBuilder: Config = new actual_Config({}).applyPlugin(
           (_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) =>
             Promise.resolve(dummyPlugin(config, {property: '__dummyPlugin'}))
         );
+
         expect(() => {
-          // Error is actually throws during build
+          // Error is actually thrown on `build()` method invocation
           void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).toThrowError('This feature is supported only in Next.js 12.1+.');
+        }).toThrowError(
+          'Plugin factory function cannot return `Promise`. This feature is supported only in Next.js 12.1+.'
+        );
       });
     });
 
     test('allow to use async function when next >=12.1', () => {
       jest.isolateModules(() => {
         jest.doMock('next/package.json', () => ({version: '12.1.0'}));
-        const ActualConfigBuilder: typeof ConfigBuilder =
-          jest.requireActual<typeof import('./ConfigBuilder')>('./ConfigBuilder').ConfigBuilder;
-        const configBuilder: ConfigBuilder = ActualConfigBuilder.defineConfig().applyPlugin(
+
+        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+
+        const configBuilder: Config = new actual_Config({}).applyPlugin(
           (_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) =>
             Promise.resolve(dummyPlugin(config, {property: '__dummyPlugin'}))
         );
+
         expect(() => {
-          // Error is actually throws during build
+          // Error is actually thrown on `build()` method invocation
           void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).not.toThrowError('This feature is supported only in Next.js 12.1+.');
+        }).not.toThrowError();
       });
     });
   });
@@ -90,12 +102,16 @@ describe('`ConfigBuilder` class', () => {
     test('if next.js <12.1.0 returns synchronous function', () => {
       jest.isolateModules(() => {
         jest.doMock('next/package.json', () => ({version: '12.0.0'}));
-        const ActualConfigBuilder: typeof ConfigBuilder =
-          jest.requireActual<typeof import('./ConfigBuilder')>('./ConfigBuilder').ConfigBuilder;
-        const configBuilder: ConfigBuilder = ActualConfigBuilder.defineConfig();
-        const configFactory: NextConfigFactory = configBuilder.build();
+
+        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+
+        const config: Config = new actual_Config({});
+        const configFactory: NextConfigFactory = config.build();
+
         expect(configFactory).toBeInstanceOf(Function);
+
         const configObject: NextConfig = configFactory(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}}) as NextConfig;
+
         expect(isPromise(configObject)).toBe(false);
       });
     });
@@ -103,21 +119,25 @@ describe('`ConfigBuilder` class', () => {
     test('if next.js <12.1.0 returns asynchronous function', () => {
       jest.isolateModules(() => {
         jest.doMock('next/package.json', () => ({version: '12.1.0'}));
-        const ActualConfigBuilder: typeof ConfigBuilder =
-          jest.requireActual<typeof import('./ConfigBuilder')>('./ConfigBuilder').ConfigBuilder;
-        const configBuilder: ConfigBuilder = ActualConfigBuilder.defineConfig();
+
+        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+
+        const configBuilder: Config = new actual_Config({});
         const configFactory: NextConfigFactory = configBuilder.build();
+
         expect(configFactory).toBeInstanceOf(Function);
+
         const promise: Promise<NextConfig> = configFactory(PHASE_DEVELOPMENT_SERVER, {
           defaultConfig: {},
         }) as Promise<NextConfig>;
+
         expect(isPromise(promise)).toBe(true);
       });
     });
 
     describe('returns function that returns/resolves to:', () => {
-      test('config object with initital config options merged', async () => {
-        const configFactory: NextConfigFactory = ConfigBuilder.defineConfig({optimizeFonts: false}).build();
+      test('NextConfig object with initital config options merged', async () => {
+        const configFactory: NextConfigFactory = new Config({optimizeFonts: false}).build();
 
         const maybePromise: NextConfig | Promise<NextConfig> = configFactory(PHASE_DEVELOPMENT_SERVER, {
           defaultConfig: {},
@@ -131,18 +151,16 @@ describe('`ConfigBuilder` class', () => {
         expect(nextConfig.optimizeFonts).toBe(false);
       });
 
-      test('config object with changes applied by plugins', async () => {
-        let configBuilder: ConfigBuilder = ConfigBuilder.defineConfig({});
+      test('NextConfig object with changes correctly applied by plugins', async () => {
+        const config: Config = new Config({});
 
         for (let i = 1; i <= 3; i++) {
-          configBuilder = configBuilder.applyPlugin(
-            (phase: ConfigurationPhase, args: ConfigFactoryArguments, config: NextConfig) => {
-              return dummyPlugin(config, {property: `__dummyPlugin${i}`});
-            }
-          );
+          config.applyPlugin((phase: ConfigurationPhase, args: ConfigFactoryArguments, config: NextConfig) => {
+            return dummyPlugin(config, {property: `__dummyPlugin${i}`});
+          });
         }
 
-        const configFactory: NextConfigFactory = configBuilder.build();
+        const configFactory: NextConfigFactory = config.build();
 
         const maybePromise: NextConfig | Promise<NextConfig> = configFactory(PHASE_DEVELOPMENT_SERVER, {
           defaultConfig: {},

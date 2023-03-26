@@ -1,10 +1,10 @@
-import * as mainModule from './main';
+import * as module_main from './main';
 
 describe('Library entrypoint (main)', () => {
 
-  test('exports `ConfigBuilder`', () => {
-    expect(mainModule).toMatchObject({
-      ConfigBuilder: expect.any(Function),
+  test('exports `Config`', () => {
+    expect(module_main).toMatchObject({
+      Config: expect.any(Function),
     });
   });
 
