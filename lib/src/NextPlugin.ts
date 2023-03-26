@@ -5,4 +5,5 @@ export type NextPlugin<T extends unknown[] = unknown[]> = (config: NextConfig, .
 
 export interface PluginApplyAction {
   (phase: ConfigurationPhase, args: ConfigFactoryArguments, config: NextConfig): NextConfig | Promise<NextConfig>;
+  pluginName?: string;
 }

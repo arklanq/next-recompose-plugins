@@ -5,6 +5,6 @@ export const dummyPlugin: NextPlugin<[{property: string}]> = function dummyPlugi
   nextConfig: NextConfig,
   options: {property: string}
 ): NextConfig {
-  Object.defineProperty(nextConfig, options.property, {value: true});
+  Object.defineProperty(nextConfig, options.property, {value: true, enumerable: true});
   return nextConfig;
 };
