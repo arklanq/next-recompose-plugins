@@ -4,7 +4,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer');
 
 const config = new Config(async () => {
   return {
-    reactStrictMode: true
+    reactStrictMode: true,
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
   };
 })
   .applyPlugin((phase, args, config) => {
