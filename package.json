@@ -3,6 +3,10 @@
   "author": "IdkMan2",
   "private": true,
   "license": "UNLICENSED",
+  "scripts": {
+    "check-updates": "ncu",
+    "force-updates": "ncu -u"
+  },
   "workspaces": {
     "packages": [
       "lib",
@@ -26,6 +30,7 @@
     "@typescript-eslint/parser": "^5.56.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
-    "prettier": "^2.8.7"
+    "prettier": "^2.8.7",
+    "npm-check-updates": "^16.14.6"
   }
 }
