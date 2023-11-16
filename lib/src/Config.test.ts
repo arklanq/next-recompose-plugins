@@ -145,7 +145,7 @@ describe('`Config` class', () => {
         const nextConfig: NextConfig = isPromise(maybePromise) ? await maybePromise : maybePromise;
 
         expect(nextConfig).toMatchObject({
-          optimizeFonts: expect.any(Boolean),
+          optimizeFonts: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
         });
 
         expect(nextConfig.optimizeFonts).toBe(false);
@@ -168,9 +168,9 @@ describe('`Config` class', () => {
         const nextConfig: NextConfig = isPromise(maybePromise) ? await maybePromise : maybePromise;
 
         expect(nextConfig).toMatchObject({
-          __dummyPlugin1: expect.any(Boolean),
-          __dummyPlugin2: expect.any(Boolean),
-          __dummyPlugin3: expect.any(Boolean),
+          __dummyPlugin1: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+          __dummyPlugin2: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
+          __dummyPlugin3: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
         });
       });
     });
