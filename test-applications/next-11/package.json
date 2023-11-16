@@ -16,8 +16,8 @@
   "devDependencies": {
     "next-recompose-plugins": "*",
     "@types/node": "^18",
-    "@types/react": "17.0.70",
+    "@types/react": "17.0.47",
     "@types/react-dom": "^17",
-    "typescript": "5.2.2"
+    "typescript": "^5"
   }
 }
