@@ -1,6 +1,6 @@
 {
   "name": "next-recompose-plugins",
-  "author": "IdkMan2",
+  "author": "arklanq",
   "version": "2.0.0",
   "license": "MIT",
   "keywords": [
@@ -12,12 +12,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/IdkMan2/next-recompose-plugins.git"
+    "url": "https://github.com/arklanq/next-recompose-plugins.git"
   },
   "bugs": {
-    "url": "https://github.com/IdkMan2/next-recompose-plugins/issues"
+    "url": "https://github.com/arklanq/next-recompose-plugins/issues"
   },
-  "homepage": "https://github.com/IdkMan2/next-recompose-plugins/lib#readme",
+  "homepage": "https://github.com/arklanq/next-recompose-plugins/lib#readme",
   "scripts": {
     "build:clean": "rimraf dist",
     "build:js": "rollup --config rollup.config.mjs",
