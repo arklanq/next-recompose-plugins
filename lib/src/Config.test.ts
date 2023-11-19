@@ -23,9 +23,7 @@ describe('`Config` class', () => {
         expect(() => {
           // Error is actually thrown on `build()` method invocation
           void config.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).toThrowError(
-          'Config factory function cannot return `Promise`. This feature is supported only in Next.js 12.1+.'
-        );
+        }).toThrow('Config factory function cannot return `Promise`. This feature is supported only in Next.js 12.1+.');
       });
     });
 
@@ -39,7 +37,7 @@ describe('`Config` class', () => {
         expect(() => {
           // Error is actually thrown on `build()` method invocation
           void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).not.toThrowError();
+        }).not.toThrow();
       });
     });
   });
@@ -73,9 +71,7 @@ describe('`Config` class', () => {
         expect(() => {
           // Error is actually thrown on `build()` method invocation
           void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).toThrowError(
-          'Plugin factory function cannot return `Promise`. This feature is supported only in Next.js 12.1+.'
-        );
+        }).toThrow('Plugin factory function cannot return `Promise`. This feature is supported only in Next.js 12.1+.');
       });
     });
 
@@ -93,7 +89,7 @@ describe('`Config` class', () => {
         expect(() => {
           // Error is actually thrown on `build()` method invocation
           void configBuilder.build()(PHASE_DEVELOPMENT_SERVER, {defaultConfig: {}});
-        }).not.toThrowError();
+        }).not.toThrow();
       });
     });
   });
