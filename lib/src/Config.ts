@@ -43,18 +43,18 @@ export class Config {
   }
 
   build(): NextConfigFactory {
-    const firstElement: PluginApplyAction | undefined = this.stack.shift();
-    assert(firstElement, 'At least one (first) element should be available on stack.');
+    const config: PluginApplyAction | undefined = this.stack.shift();
+    assert(config, 'At least one (first) element should be available on stack.');
 
-    if (isAsyncContextAvailable) return this.buildAsync(firstElement);
-    else return this.buildSync(firstElement);
+    if (isAsyncContextAvailable) return this.buildAsync(config);
+    else return this.buildSync(config);
   }
 
-  protected buildSync(firstElement: PluginApplyAction): NextConfigFactory {
+  protected buildSync(config: PluginApplyAction): NextConfigFactory {
     return (phase, args) => {
       let baseConfig: NextConfig | Promise<NextConfig>;
       try {
-        baseConfig = firstElement(phase, args, {});
+        baseConfig = config(phase, args, {});
       } catch (e: unknown) {
         throw new ConfigBuildException('Cannot construct config object.', e);
       }
@@ -71,7 +71,7 @@ export class Config {
           }`
         );
 
-      // Check if there are 'applyPlugin' invocations on the stack
+      // Check if there are any 'applyPlugin' invocations on the stack
       if (this.stack.length > 0) {
         for (let i = 0; i < this.stack.length; i++) {
           const element: PluginApplyAction = this.stack[i];
@@ -101,11 +101,11 @@ export class Config {
     };
   }
 
-  protected buildAsync(firstElement: PluginApplyAction): NextConfigFactory {
+  protected buildAsync(config: PluginApplyAction): NextConfigFactory {
     return async (phase, args) => {
       let baseConfig: NextConfig | Promise<NextConfig>;
       try {
-        baseConfig = await firstElement(phase, args, {});
+        baseConfig = await config(phase, args, {});
       } catch (e: unknown) {
         throw new ConfigBuildException('Cannot construct config object.', e);
       }
@@ -117,7 +117,8 @@ export class Config {
           }`
         );
 
-      if (this.stack.length > 1) {
+      // Check if there are any 'applyPlugin' invocations on the stack
+      if (this.stack.length > 0) {
         for (let i = 0; i < this.stack.length; i++) {
           const element: PluginApplyAction = this.stack[i];
           const elementId: string = element.pluginName ?? `unnamed, at index ${i}`;

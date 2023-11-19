@@ -151,28 +151,32 @@ describe('`Config` class', () => {
         expect(nextConfig.optimizeFonts).toBe(false);
       });
 
-      test('NextConfig object with changes correctly applied by plugins', async () => {
-        const config: Config = new Config({});
+      for (let n = 1; n <= 3; n++) {
+        test(`creates NextConfig object with changes correctly applied by ${n} plugins`, async () => {
+          const config: Config = new Config({});
 
-        for (let i = 1; i <= 3; i++) {
-          config.applyPlugin((phase: ConfigurationPhase, args: ConfigFactoryArguments, config: NextConfig) => {
-            return dummyPlugin(config, {property: `__dummyPlugin${i}`});
+          for (let i = 1; i <= n; i++) {
+            config.applyPlugin((_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) => {
+              return dummyPlugin(config, {property: `__dummyPlugin${i}`});
+            });
+          }
+
+          const configFactory: NextConfigFactory = config.build();
+
+          const maybePromise: NextConfig | Promise<NextConfig> = configFactory(PHASE_DEVELOPMENT_SERVER, {
+            defaultConfig: {},
           });
-        }
+          const nextConfig: NextConfig = isPromise(maybePromise) ? await maybePromise : maybePromise;
 
-        const configFactory: NextConfigFactory = config.build();
+          const expectedObject: Record<string, unknown> = {};
 
-        const maybePromise: NextConfig | Promise<NextConfig> = configFactory(PHASE_DEVELOPMENT_SERVER, {
-          defaultConfig: {},
+          for (let i = 1; i <= n; i++) {
+            expectedObject[`__dummyPlugin${i}`] = expect.any(Boolean);
+          }
+
+          expect(nextConfig).toMatchObject(expectedObject);
         });
-        const nextConfig: NextConfig = isPromise(maybePromise) ? await maybePromise : maybePromise;
-
-        expect(nextConfig).toMatchObject({
-          __dummyPlugin1: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-          __dummyPlugin2: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-          __dummyPlugin3: expect.any(Boolean), // eslint-disable-line @typescript-eslint/no-unsafe-assignment
-        });
-      });
+      }
     });
   });
 });
