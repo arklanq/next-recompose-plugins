@@ -2,9 +2,11 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    browser: true,
   },
+  ignorePatterns: ["**/node_modules", "**/dist", "**/.next"],
   parserOptions: {
-    ecmaVersion: "latest",
+    ecmaVersion: 'latest',
   },
   extends: ['eslint:recommended', 'prettier'],
   overrides: [

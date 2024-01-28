@@ -1,9 +1,10 @@
-import {Config} from './Config';
-import {PHASE_DEVELOPMENT_SERVER} from 'next/constants';
-import {ConfigFactoryArguments, ConfigurationPhase, NextConfigFactory} from './NextConfigDeclaration';
+import {jest} from '@jest/globals';
 import {NextConfig} from 'next';
-import {dummyPlugin} from './__mocks__/dummyPlugin';
+import {PHASE_DEVELOPMENT_SERVER} from 'next/constants';
 import isPromise from 'is-promise';
+import {Config} from '../src/Config.js';
+import {ConfigFactoryArguments, ConfigurationPhase, NextConfigFactory} from '../src/NextConfigDeclaration.js';
+import {dummyPlugin} from './__mocks__/dummyPlugin.js';
 
 describe('`Config` class', () => {
   describe('constructor', () => {
@@ -12,13 +13,13 @@ describe('`Config` class', () => {
       expect(config).toBeInstanceOf(Config);
     });
 
-    test("doesn't allow to use async function when next <12.1", () => {
-      jest.isolateModules(() => {
-        jest.doMock('next/package.json', () => ({version: '12.0.0'}));
+    test("doesn't allow to use async function when next <12.1", async () => {
+      await jest.isolateModulesAsync(async () => {
+        jest.mock('next/package.json', () => ({version: '12.0.0'}));
 
-        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
-
-        const config: Config = new actual_Config(() => Promise.resolve({}));
+        const freshModule = await import('../src/Config');
+        const Config = freshModule.Config;
+        const config: Config = new Config(() => Promise.resolve({}));
 
         expect(() => {
           // Error is actually thrown on `build()` method invocation
@@ -27,12 +28,13 @@ describe('`Config` class', () => {
       });
     });
 
-    test('allow to use async function when next >=12.1', () => {
-      jest.isolateModules(() => {
-        jest.doMock('next/package.json', () => ({version: '12.1.0'}));
-        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+    test('allow to use async function when next >=12.1', async () => {
+      await jest.isolateModulesAsync(async () => {
+        jest.mock('next/package.json', () => ({version: '12.1.0'}));
 
-        const configBuilder: Config = new actual_Config(() => Promise.resolve({}));
+        const freshModule = await import('../src/Config');
+        const Config = freshModule.Config;
+        const configBuilder: Config = new Config(() => Promise.resolve({}));
 
         expect(() => {
           // Error is actually thrown on `build()` method invocation
@@ -57,13 +59,14 @@ describe('`Config` class', () => {
       ).toBeInstanceOf(Config);
     });
 
-    test("doesn't allow to use async function when next <12.1", () => {
-      jest.isolateModules(() => {
-        jest.doMock('next/package.json', () => ({version: '12.0.0'}));
+    test("doesn't allow to use async function when next <12.1", async () => {
+      await jest.isolateModulesAsync(async () => {
+        jest.mock('next/package.json', () => ({version: '12.0.0'}));
 
-        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+        const freshModule = await import('../src/Config');
+        const Config = freshModule.Config;
 
-        const configBuilder: Config = new actual_Config({}).applyPlugin(
+        const configBuilder: Config = new Config({}).applyPlugin(
           (_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) =>
             Promise.resolve(dummyPlugin(config, {property: '__dummyPlugin'}))
         );
@@ -75,13 +78,14 @@ describe('`Config` class', () => {
       });
     });
 
-    test('allow to use async function when next >=12.1', () => {
-      jest.isolateModules(() => {
-        jest.doMock('next/package.json', () => ({version: '12.1.0'}));
+    test('allow to use async function when next >=12.1', async () => {
+      await jest.isolateModulesAsync(async () => {
+        jest.mock('next/package.json', () => ({version: '12.1.0'}));
 
-        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+        const freshModule = await import('../src/Config');
+        const Config = freshModule.Config;
 
-        const configBuilder: Config = new actual_Config({}).applyPlugin(
+        const configBuilder: Config = new Config({}).applyPlugin(
           (_phase: ConfigurationPhase, _args: ConfigFactoryArguments, config: NextConfig) =>
             Promise.resolve(dummyPlugin(config, {property: '__dummyPlugin'}))
         );
@@ -95,13 +99,14 @@ describe('`Config` class', () => {
   });
 
   describe('`build` method', () => {
-    test('if next.js <12.1.0 returns synchronous function', () => {
-      jest.isolateModules(() => {
-        jest.doMock('next/package.json', () => ({version: '12.0.0'}));
+    test('if next.js <12.1.0 returns synchronous function', async () => {
+      await jest.isolateModulesAsync(async () => {
+        jest.mock('next/package.json', () => ({version: '12.0.0'}));
 
-        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+        const freshModule = await import('../src/Config');
+        const Config = freshModule.Config;
 
-        const config: Config = new actual_Config({});
+        const config: Config = new Config({});
         const configFactory: NextConfigFactory = config.build();
 
         expect(configFactory).toBeInstanceOf(Function);
@@ -112,13 +117,14 @@ describe('`Config` class', () => {
       });
     });
 
-    test('if next.js <12.1.0 returns asynchronous function', () => {
-      jest.isolateModules(() => {
-        jest.doMock('next/package.json', () => ({version: '12.1.0'}));
+    test('if next.js <12.1.0 returns asynchronous function', async () => {
+      await jest.isolateModulesAsync(async () => {
+        jest.mock('next/package.json', () => ({version: '12.1.0'}));
 
-        const actual_Config: typeof Config = jest.requireActual<typeof import('./Config')>('./Config').Config;
+        const freshModule = await import('../src/Config');
+        const Config = freshModule.Config;
 
-        const configBuilder: Config = new actual_Config({});
+        const configBuilder: Config = new Config({});
         const configFactory: NextConfigFactory = configBuilder.build();
 
         expect(configFactory).toBeInstanceOf(Function);

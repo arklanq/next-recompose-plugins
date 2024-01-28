@@ -3,6 +3,7 @@
   "author": "arklanq",
   "version": "2.0.2",
   "license": "MIT",
+  "type": "module",
   "keywords": [
     "next.js",
     "next",
@@ -20,12 +21,12 @@
   "homepage": "https://github.com/arklanq/next-recompose-plugins/lib#readme",
   "scripts": {
     "build:clean": "rimraf dist",
-    "build:js": "rollup --config rollup.config.mjs",
-    "build:ts": "tsc --project tsconfig.json",
-    "build": "yarn run build:clean && yarn run build:js && yarn run build:ts",
-    "test": "jest",
-    "lint": "yarn run eslint --config ../.eslintrc.js --ignore-path ../.eslintignore --fix \"src/**/*.ts\"",
-    "format": "yarn run prettier --config ../.prettierrc.js --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\""
+    "build:source": "rollup --config rollup.config.js",
+    "build": "yarn run build:clean && yarn run build:source",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules --no-warnings='ExperimentalWarning: VM Modules'\" yarn jest",
+    "lint": "yarn run eslint --config ./.eslintrc.cjs --ignore-path ../.eslintignore --fix \"src/**/*.ts\"",
+    "format": "yarn run prettier --config ../.prettierrc.js --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\"",
+    "validate-types": "tsc --project tsconfig.json --emitDeclarationOnly false --noEmit"
   },
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
@@ -49,7 +50,8 @@
   "dependencies": {
     "is-promise": "^4.0.0",
     "semver": "^7.5.4",
-    "take-n-pipe": "^1.1.1"
+    "take-n-pipe": "^1.1.1",
+    "enhanced-exception": "^1.0.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
@@ -70,7 +72,8 @@
     "rollup": "^4.4.1",
     "ts-jest": "^29.1.1",
     "tslib": "^2.6.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "write-pkg": "^7.0.0"
   },
   "peerDependencies": {
     "next": ">=11"
