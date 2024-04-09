@@ -28,17 +28,17 @@
     "format": "yarn run prettier --config ../.prettierrc.js --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\"",
     "validate-types": "tsc --project tsconfig.json --emitDeclarationOnly false --noEmit"
   },
+  "types": "./dist/cjs/main.d.ts",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
-  "types": "./dist/types/main.d.ts",
   "exports": {
     ".": {
       "require": {
-        "types": "./dist/types/main.d.ts",
+        "types": "./dist/cjs/main.d.ts",
         "default": "./dist/cjs/main.js"
       },
       "import": {
-        "types": "./dist/types/main.d.ts",
+        "types": "./dist/esm/main.d.ts",
         "default": "./dist/esm/main.js"
       }
     }
