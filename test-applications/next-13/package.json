@@ -7,6 +7,9 @@
     "build": "next build",
     "start": "next start"
   },
+  "engines": {
+    "node": "18"
+  },
   "dependencies": {
     "next": "^13",
     "@next/bundle-analyzer": "^13",
