@@ -41,6 +41,8 @@ const config = {
     const filter = filters.find((handler) => handler.packageName === packageName);
 
     if(filter) return filter.process(currentVersionSemver);
+
+    return true;
   },
   target(packageName, _semver)  {
     for(const level of ['major', 'minor', 'patch']) {
