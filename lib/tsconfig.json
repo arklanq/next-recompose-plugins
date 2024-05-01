@@ -1,11 +1,15 @@
 {
-  "compilerOptions": {
-    "rootDir": "src",                                    /* Specify the root folder within your source files. */
-    "declaration": true,                                 /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
-    "emitDeclarationOnly": true,                         /* Only output d.ts files and not JavaScript files. */
-    "outDir": "./dist/types/",                           /* Specify an output folder for all emitted files. */
-  },
   "extends": "../tsconfig.json",
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "noEmit": true
+  },
+  "include": [],
+  "exclude": [],
+  "references": [
+    { "path": "tsconfig.src.json" },
+    { "path": "tsconfig.test.json" }
+  ]
 }

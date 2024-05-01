@@ -1,8 +1,9 @@
 {
   "name": "next-recompose-plugins",
   "author": "arklanq",
-  "version": "2.0.2",
+  "version": "3.0.0-canary.1",
   "license": "MIT",
+  "type": "module",
   "keywords": [
     "next.js",
     "next",
@@ -20,24 +21,24 @@
   "homepage": "https://github.com/arklanq/next-recompose-plugins/lib#readme",
   "scripts": {
     "build:clean": "rimraf dist",
-    "build:js": "rollup --config rollup.config.mjs",
-    "build:ts": "tsc --project tsconfig.json",
-    "build": "yarn run build:clean && yarn run build:js && yarn run build:ts",
-    "test": "jest",
-    "lint": "yarn run eslint --config ../.eslintrc.js --ignore-path ../.eslintignore --fix \"src/**/*.ts\"",
-    "format": "yarn run prettier --config ../.prettierrc.js --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\""
+    "build:source": "rollup --config rollup.config.js",
+    "build": "yarn run build:clean && yarn run build:source",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules --no-warnings='ExperimentalWarning: VM Modules'\" yarn jest",
+    "lint": "yarn run eslint --config ./.eslintrc.cjs --ignore-path ../.eslintignore --fix \"src/**/*.ts\"",
+    "format": "yarn run prettier --config ../.prettierrc.js --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\"",
+    "validate-types": "tsc --project tsconfig.json --emitDeclarationOnly false --noEmit"
   },
+  "types": "./dist/cjs/main.d.ts",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/main.js",
-  "types": "./dist/types/main.d.ts",
   "exports": {
     ".": {
       "require": {
-        "types": "./dist/types/main.d.ts",
+        "types": "./dist/cjs/main.d.ts",
         "default": "./dist/cjs/main.js"
       },
       "import": {
-        "types": "./dist/types/main.d.ts",
+        "types": "./dist/esm/main.d.ts",
         "default": "./dist/esm/main.js"
       }
     }
@@ -48,31 +49,33 @@
   ],
   "dependencies": {
     "is-promise": "^4.0.0",
-    "semver": "^7.5.4",
-    "take-n-pipe": "^1.1.1"
+    "semver": "^7.6.0",
+    "take-n-pipe": "^1.1.2",
+    "enhanced-exception": "^1.0.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-json": "^6.0.1",
+    "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.5",
+    "@rollup/plugin-typescript": "^11.1.6",
     "@types/is-promise": "^2.2.0",
-    "@types/jest": "^29.5.8",
-    "@types/semver": "^7.5.5",
-    "@typescript-eslint/eslint-plugin": "^6.11.0",
-    "@typescript-eslint/parser": "^6.11.0",
-    "eslint": "^8.53.0",
-    "eslint-config-prettier": "^9.0.0",
+    "@types/jest": "^29.5.12",
+    "@types/semver": "^7.5.8",
+    "@typescript-eslint/eslint-plugin": "^7.6.0",
+    "@typescript-eslint/parser": "^7.6.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "jest": "^29.7.0",
-    "next": ">=12",
-    "prettier": "^3.1.0",
+    "next": ">=14",
+    "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
-    "rollup": "^4.4.1",
-    "ts-jest": "^29.1.1",
+    "rollup": "^4.14.1",
+    "ts-jest": "^29.1.2",
     "tslib": "^2.6.2",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.4",
+    "write-pkg": "^7.0.0"
   },
   "peerDependencies": {
-    "next": ">=11"
+    "next": ">=14"
   }
 }

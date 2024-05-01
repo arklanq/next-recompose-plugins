@@ -1,4 +1,5 @@
-import {isAsyncConfigFactorySupported} from './isAsyncConfigFactorySupported';
+import {jest} from '@jest/globals';
+import {isAsyncConfigFactorySupported} from '../src/isAsyncConfigFactorySupported.js';
 
 describe('isAsyncConfigFactorySupported()', () => {
   describe('returns boolean based on `next` package version', () => {

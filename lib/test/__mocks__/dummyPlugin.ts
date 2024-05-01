@@ -1,5 +1,5 @@
 import {NextConfig} from 'next';
-import {NextPlugin} from '../NextPlugin';
+import {NextPlugin} from '../../src/NextPlugin.js';
 
 export const dummyPlugin: NextPlugin<[{property: string}]> = function dummyPlugin(
   nextConfig: NextConfig,

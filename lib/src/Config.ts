@@ -1,12 +1,14 @@
-import {isAsyncConfigFactorySupported} from './isAsyncConfigFactorySupported';
-import {NextConfigDeclaration, NextConfigFactory} from './NextConfigDeclaration';
-import {PluginApplyAction} from './NextPlugin';
-import assert from 'assert';
+import assert from 'node:assert';
 import {NextConfig} from 'next';
 import isPromise from 'is-promise';
-import {ConfigBuildException} from './ConfigBuildException';
+import {isAsyncConfigFactorySupported} from './isAsyncConfigFactorySupported.js';
+import {NextConfigDeclaration, NextConfigFactory} from './NextConfigDeclaration.js';
+import {PluginApplyAction} from './NextPlugin.js';
+import {ConfigBuildException} from './ConfigBuildException.js';
 
-const isAsyncContextAvailable = isAsyncConfigFactorySupported();
+export const isAsyncContextAvailable = isAsyncConfigFactorySupported();
+
+export const random = Math.random();
 
 export class Config {
   private readonly stack: PluginApplyAction[];

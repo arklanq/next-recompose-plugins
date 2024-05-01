@@ -3,6 +3,6 @@ export type {
   ConfigFactoryArguments,
   NextConfigFactory,
   NextConfigDeclaration,
-} from './NextConfigDeclaration';
-export type {NextPlugin} from './NextPlugin';
-export {Config} from './Config';
+} from './NextConfigDeclaration.js';
+export type {NextPlugin} from './NextPlugin.js';
+export {Config} from './Config.js';
