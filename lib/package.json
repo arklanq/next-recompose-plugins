@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/arklanq/next-recompose-plugins.git"
+    "url": "git+https://github.com/arklanq/next-recompose-plugins.git"
   },
   "bugs": {
     "url": "https://github.com/arklanq/next-recompose-plugins/issues"
