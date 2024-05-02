@@ -13,7 +13,7 @@ export const random = Math.random();
 export class Config {
   private readonly stack: PluginApplyAction[];
 
-  constructor(configDeclaration: NextConfigDeclaration = {}) {
+  public constructor(configDeclaration: NextConfigDeclaration = {}) {
     switch (typeof configDeclaration) {
       case 'object': {
         if (configDeclaration === null)
@@ -38,13 +38,13 @@ export class Config {
     }
   }
 
-  applyPlugin(applyAction: PluginApplyAction, pluginName?: string): Config {
+  public applyPlugin(applyAction: PluginApplyAction, pluginName?: string): Config {
     applyAction.pluginName = pluginName;
     this.stack.push(applyAction);
     return this;
   }
 
-  build(): NextConfigFactory {
+  public build(): NextConfigFactory {
     const config: PluginApplyAction | undefined = this.stack.shift();
     assert(config, 'At least one (first) element should be available on stack.');
 

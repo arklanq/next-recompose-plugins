@@ -4,7 +4,7 @@ import {
   PHASE_EXPORT,
   PHASE_PRODUCTION_BUILD,
   PHASE_PRODUCTION_SERVER,
-  PHASE_TEST,
+  PHASE_TEST
 } from 'next/constants';
 
 export type ConfigurationPhase =
