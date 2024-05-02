@@ -1,7 +1,16 @@
-/.eslintrc.js
-/.gitignore
-/.nvmrc
-/jest.config.js
-/rollup.config.mjs
-/tsconfig.json
-/src/
+# OS
+.DS_Store
+Thumbs.db
+[Dd]esktop.ini
+
+# IDE
+.idea
+
+# App
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo
+.eslintcache
+
+# misc
+.tmp

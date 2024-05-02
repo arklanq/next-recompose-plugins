@@ -24,8 +24,8 @@
     "build:source": "rollup --config rollup.config.js",
     "build": "yarn run build:clean && yarn run build:source",
     "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules --no-warnings='ExperimentalWarning: VM Modules'\" yarn jest",
-    "lint": "yarn run eslint --config ./.eslintrc.cjs --ignore-path ../.eslintignore --fix \"src/**/*.ts\"",
-    "format": "yarn run prettier --config ../.prettierrc.js --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\"",
+    "lint": "yarn run eslint --config eslint.config.cjs --fix \"src/**/*.ts\"",
+    "format": "yarn run prettier --config ../prettier.config.cjs --ignore-path ../.prettierignore --log-level warn --write \"src/**/*.ts\"",
     "validate-types": "tsc --project tsconfig.json --emitDeclarationOnly false --noEmit"
   },
   "types": "./dist/cjs/main.d.ts",
