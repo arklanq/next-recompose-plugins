@@ -1,7 +1,7 @@
 {
   "name": "next-recompose-plugins",
   "author": "arklanq",
-  "version": "3.0.0-canary.1",
+  "version": "3.0.0",
   "license": "MIT",
   "type": "module",
   "keywords": [
