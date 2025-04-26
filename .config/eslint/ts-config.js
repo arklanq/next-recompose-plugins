@@ -8,6 +8,7 @@ const config = tseslint.config(
   tseslint.configs.eslintRecommended,
   tseslint.configs.recommendedTypeChecked[tseslint.configs.recommendedTypeChecked.length - 1],
   {
+    ignorePatterns: ['next.config.ts'],
     languageOptions: {
       parserOptions: {
         projectService: true,
