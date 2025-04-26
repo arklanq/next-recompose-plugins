@@ -14,7 +14,7 @@ const config = [
   eslintStockPlugin.configs.recommended,
 
   // TypeScript code only
-  tsConfig,
+  ...tsConfig,
 
   // Turns off all rules that are unnecessary or might conflict with Prettier
   eslintConfigPrettier

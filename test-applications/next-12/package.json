@@ -17,7 +17,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "next-recompose-plugins": "*",
+    "next-recompose-plugins": "file:../../lib",
     "@types/node": "^18",
     "@types/react": "^18",
     "@types/react-dom": "^18",

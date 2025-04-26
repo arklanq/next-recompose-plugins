@@ -7,35 +7,18 @@
     "check-updates": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs",
     "force-updates": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs -u"
   },
-  "workspaces": {
-    "packages": [
-      "lib",
-      "test-applications/*"
-    ],
-    "nohoist": [
-      "**/next",
-      "**/next/**",
-      "**/@next/bundle-analyzer",
-      "**/@next/bundle-analyzer/**",
-      "**/react",
-      "**/react/**",
-      "**/react-dom",
-      "**/react-dom/**",
-      "**/@types/react",
-      "**/@types/react-dom"
-    ]
-  },
-  "resolutions": {
-    "wrap-ansi": "7.0.0"
+  "engines": {
+    "node": "22"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.6.0",
-    "@typescript-eslint/parser": "^7.6.0",
-    "eslint": "^9.0.0",
-    "eslint-config-prettier": "^9.1.0",
-    "npm-check-updates": "^16.14.18",
-    "prettier": "^3.2.5",
-    "@eslint/js": "^9.1.1",
-    "globals": "^15.1.0"
+    "@eslint/js": "^9.25.1",
+    "deepmerge": "^4.3.1",
+    "eslint": "^9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "globals": "^16.0.0",
+    "npm-check-updates": "^18.0.1",
+    "prettier": "^3.5.3",
+    "typescript-eslint": "^8.31.0",
+    "typescript": "^5.8.3"
   }
 }
